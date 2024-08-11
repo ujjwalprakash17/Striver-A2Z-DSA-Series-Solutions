@@ -3,13 +3,13 @@
 using namespace std;
 
 //Approach : 
- Ex - 1 : 3 4 5 1 2
- in this case the loop will increase the count by 1 since 5 > 1
- but after loop will check that if first value is less than last value if yes increase 
- consider the below examples and dry run each 
- 3 4 5 1 2, // true
- 1 2 3 4 5,  // true 
- 2 1 3 4 // false 
+//  Ex - 1 : 3 4 5 1 2
+//  in this case the loop will increase the count by 1 since 5 > 1
+//  but after loop will check that if first value is less than last value if yes increase 
+//  consider the below examples and dry run each 
+//  3 4 5 1 2, // true
+//  1 2 3 4 5,  // true 
+//  2 1 3 4 // false 
 
 
 
