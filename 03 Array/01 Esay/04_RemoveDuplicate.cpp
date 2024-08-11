@@ -20,8 +20,11 @@ int removeDuplicates(vector<int> &nums)
             nums[ind] = nums[i];
         }
     }
-    return ind + 1;
+    return ind + 1; //since they are asking for size not for index
 }
+// T.C - O(n) | S.C - O(1)
+
+
 
 int main()
 {
