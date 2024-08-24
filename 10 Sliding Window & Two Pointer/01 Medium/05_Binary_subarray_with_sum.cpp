@@ -20,14 +20,33 @@ using namespace std;
 //     return ans;
 // }
 
+//Approach - 2
+
 //New method , Old method niche hai prefix sum wala
 // isme hm equal to goal pe nhi, less than or equal to goal wale pe jitne bhi subarrays hai count kr lenge aur phir goal se ek kam wale pe same krenge aur dono result ko subtract kr lenge. 
-code : -
+// code : -
+
+int noOfSubarray(vector<int> arr, int goal)
+{
+    int sum = 0; 
+    if(goal == 0) return 0;
+    int left = 0, right = 0;
+    int ans = 0;
+    while (right < arr.size())
+    {
+        sum += arr[right];
+        while(sum > goal)
+        {
+            sum -= arr[left++];
+        }
+        ans += (right - left + 1);
+        right++;
+    }
+    return ans;
+}
 
 int main()
-{
-    string binRep = bitset<16>(10).to_string();
-    cout << binRep << endl;
-    cout << log2(7) + 1 << endl;
+{   
+    
     return 0;
 }
