@@ -2,31 +2,63 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void merge(vector<int> &arr, int left, int right)
+// write here we are writing merge function
+
+void merge(vector<int> &arr, int l, int m, int r)
 {
-    for(int i = left; i < right; i++)
-    cout << arr[i] << " ";
+    std::vector<int> temp;
+    int i = l;
+    int j = m + 1;
+    while (i <= m && j <= r)
+    {
+        if (arr[i] <= arr[j])
+        {
+            temp.push_back(arr[i]);
+            i++;
+        }
+        else
+        {
+            temp.push_back(arr[j]);
+            j++;
+        }
+    }
+    while (i <= m)
+    {
+        temp.push_back(arr[i]);
+        i++;
+    }
+    while (j <= r)
+    {
+        temp.push_back(arr[j]);
+        j++;
+    }
+    for (int k = l; k <= r; k++)
+    {
+        arr[k] = temp[k - l];
+    }
 }
 
-int mergeSort(vector<int> &arr, int s, int e)
+void mergeSort(vector<int> &arr, int l, int r)
 {
-    if (s < e)
+
+    // This means that there is atleast one element
+    if (l < r)
     {
-        int mid = s + (e-s) / 2;
-        int left = mergeSort(arr, s, mid);
-        int right = mergeSort(arr, mid + 1, e);
-        merge(arr, left, right);
+        // Finding the mid point
+        int m = (l + r) / 2;
+
+        // Sorting the first and second halves
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
+
+        // Merging the two sorted arrays
+        merge(arr, l, m, r);
     }
-    else return 0;
 }
 
 int main()
 {
-    vector<int> arr = {5, 3, 2, 4, 1};
-    mergeSort(arr,0, 5);
-    // for (int i = 0; i < 5; i++)
-    // {
-    //     cout << arr[i] << " ";
-    // }
+    vector<int> sample = {4, 1, 3, 9, 7};
+    mergeSort(sample, 0, sample.size() - 1);
     return 0;
 }
