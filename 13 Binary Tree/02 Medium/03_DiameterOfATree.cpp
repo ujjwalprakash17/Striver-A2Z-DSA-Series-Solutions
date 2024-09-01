@@ -41,7 +41,7 @@ int main()
     return 0;
 }
 
-void create_tree(node *root0, vector<int> &vec)
+void create_tree(node *&root0, vector<int> &vec)
 {
     // Your code goes here
     if (vec.size() == 0)

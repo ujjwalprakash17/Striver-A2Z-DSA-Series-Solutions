@@ -24,7 +24,7 @@ struct node *newNode(int data)
 //     //will take q for level order traversal
 //     root0 = newNode(vec[0]);
 //     queue<node *>q;
-//     q.push(root0); 
+//     q.push(root0);
 //     int i = 1;
 //     while(!q.empty() && i < vec.size())
 //     {
@@ -34,42 +34,74 @@ struct node *newNode(int data)
 //         node *leftNode = newNode(vec[i++]);
 //         node *rightNode = newNode(vec[i++]);
 //         curr->left = leftNode;
-//         q.push(curr->left); 
+//         q.push(curr->left);
 //         curr->right = rightNode;
-//         q.push(curr->right); 
+//         q.push(curr->right);
 //     }
 
 // }
 
-void create_tree(node*& root0, vector<int>& vec) {
-    if (vec.empty()) {
+void create_tree(node *&root0, vector<int> &vec)
+{
+    if (vec.empty())
+    {
         root0 = nullptr; // Handle empty vector
         return;
     }
 
     root0 = newNode(vec[0]);
-    queue<node*> q;
+    queue<node *> q;
     q.push(root0);
     int i = 1;
 
-    while (!q.empty() && i < vec.size()) {
-        node* curr = q.front();
+    while (!q.empty() && i < vec.size())
+    {
+        node *curr = q.front();
         q.pop();
 
         // Create left node
-        if (i < vec.size()) {
+        if (i < vec.size())
+        {
             curr->left = newNode(vec[i++]);
             q.push(curr->left);
         }
 
         // Create right node
-        if (i < vec.size()) {
+        if (i < vec.size())
+        {
             curr->right = newNode(vec[i++]);
             q.push(curr->right);
         }
     }
 }
 
+void create_tree(node *&root, vector<int> &vec)
+{
+    if (vec.size() == 0)
+    {
+        root = nullptr;
+        return;
+    }
+    queue<node *> q;
+    root = newNode(vec[0]);
+    q.push(root);
+    int i = 1;
+    while (!q.empty())
+    {
+        node *curr = q.front();
+        q.pop();
+        if (vec[i] != -1 || vec[i] != NULL)
+        {
+            curr->left = newNode(vec[i++]);
+            q.push(curr->left);
+        }
+        else if (vec[i] != -1 || vec[i] != NULL)
+        {
+            curr->right = newNode(vec[i++]);
+            q.push(curr->right);
+        }
+    }
+}
 
 int main()
 {
