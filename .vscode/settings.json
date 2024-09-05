@@ -3,6 +3,7 @@
         "*.js": "javascriptreact",
         "chrono": "cpp",
         "span": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "ostream": "cpp"
     }
 }
