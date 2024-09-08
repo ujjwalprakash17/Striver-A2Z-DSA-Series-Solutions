@@ -1,22 +1,80 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int sumSubarrayMins(vector<int>& arr) {
-    int mod = 1e9+7;
-        int sum = 0;
-        for (int i = 0; i < arr.size(); i++) {
-            vector<int> temp;
-            for (int j = i; j < arr.size(); j++) {
-                temp.push_back(arr[i]);
-                int tempSum = *min_element(temp.begin(), temp.end()) % mod; 
-                sum += tempSum;
+vector<int> findNextSmallerEle(vector<int> &arr)
+{
+    stack<int> st;
+    vector<int> store(arr.size());
+    for(int i = arr.size() -1 ; i >= 0 ; i--)
+    {
+        if(st.empty())
+        {
+            store[i] = -1;
+            st.push(arr[i]);
+        }
+        else{
+            while(!st.empty() && st.top() >= arr[i])
+            {
+                st.pop();
+            }
+            if(st.empty())
+            {
+                store[i] = -1;
+                st.push(arr[i]);
+            }
+            else{
+                store[i] = st.top();
+                st.push(arr[i]);
             }
         }
-        return sum % mod;
     }
+    return store;
+}
+
+vector<int> findPrevSmallerEle(vector<int> &arr)
+{
+    vector<int> store(arr.size());
+    stack<int> st;
+    for(int i = 0; i < arr.size() ; i++)
+    {
+        if(st.empty())
+        {
+            store[i] = -1;
+            st.push(arr[i]);
+        }
+        else{
+            while(!st.empty() && st.top() >= arr[i])
+            {
+                st.pop();
+            }
+            if(st.empty())
+            {
+                store[i] = -1;
+                st.push(arr[i]);
+            }
+            else{
+                store[i] = st.top();
+                st.push(arr[i]);
+            }
+        }
+    }
+    return store;
+}
+
+int sumSubarrayMins(vector<int> &arr)
+{
+    vector<int> nse = findNextSmallerEle(arr);
+    vector<int> revArr = arr;
+    reverse(revArr.begin() , revArr.end());
+    revArr = findNextSmallerEle(revArr);
+    reverse(revArr.begin(), revArr.end());
+    
+    
+}
 
 int main()
 {
-    vector<int> sample = {3,1,2,4};
+    vector<int> sample = {3, 1, 2, 4};
+    cout << sumSubarrayMins(sample);
     return 0;
 }
