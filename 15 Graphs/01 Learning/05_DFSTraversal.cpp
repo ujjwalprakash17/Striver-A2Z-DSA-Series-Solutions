@@ -5,14 +5,26 @@ using namespace std;
 // whi node ke liye call lagao jo visited nhi hai
 
 
-void dfsTraversal(int node, vector<int>adj[], vector<int> &visited, vector<int> &dfs)
+// void dfsTraversal(int node, vector<int>adj[], vector<int> &visited, vector<int> &dfs)
+// {
+//     visited[node] = 1;
+//     dfs.push_back(node);
+//     for(auto it: adj[node])
+//     {
+//         if(!visited[it])
+//         dfsTraversal(it, adj, visited, dfs);
+//     }
+// }
+void dfsTraversal(int node, vector<int> adj[], vector<int> &visited, vector<int> &dfs)
 {
     visited[node] = 1;
     dfs.push_back(node);
-    for(auto it: adj[node])
+    for(auto it : adj[node])
     {
         if(!visited[it])
-        dfsTraversal(it, adj, visited, dfs);
+        {
+            dfsTraversal(it, adj, visited, dfs);
+        }
     }
 }
 vector<int> dfsOfGraph(int V, vector<int> adj[])

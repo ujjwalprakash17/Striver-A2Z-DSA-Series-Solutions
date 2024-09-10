@@ -32,7 +32,36 @@ vector<int> bfsOfGraph(int V, vector<int> adj[])
     }
     return bfs;
 }
-
+vector<int> bfsOfGraph(int V, vector<int> adj[])
+{
+    //step 1 : take a queue since bfs or levelOrder
+                // take a array visited marked every element 0 -> initially
+    queue<int> q;
+    vector<int> visited(V,0);
+    //since we have only one graph where we have considered the starting index as 0. you can choose any
+    //so push the starting node into queue and mark it visited 
+    q.push(0);
+    visited[0] = 1;
+    //take another array to store the bfs traversal 
+    vector<int> bfs;
+    //the below steps are repeating so keep repeating until the queue doesn't gets empty
+    while(!q.empty())
+    {
+        int curr = q.front();
+        q.pop();
+        bfs.push_back(curr);
+        for(int it : adj[curr])
+        {
+            if(!visited[it])
+            {
+                visited[it] = 1;
+                q.push(it);
+            }
+        }
+    }
+    return bfs;
+    
+}
 
 int main()
 {
