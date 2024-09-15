@@ -10,7 +10,6 @@ int selectionSort(vector<int> &arr)
         {
             if(arr[j] < arr[minIndex])
             minIndex = j;
-            // mini = min(mini, arr[j]);
         }
         swap(arr[i], arr[minIndex]);;
     }
