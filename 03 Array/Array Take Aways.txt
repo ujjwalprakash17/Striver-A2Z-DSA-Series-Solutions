@@ -36,3 +36,15 @@
 
 3. Moore's Voting algorithm
 
+4. Check If Array Pairs Are Divisible by k : 
+    objective : question me dekh lo 
+    Approach : 
+    we are targetting the remainder of the numbers 
+    the freq of first to last 
+    and same as second to second last and so on.. 
+    are same then it is true, otherwise it is false, 
+    code see in the problem submission, 
+so this gives a hint, when working on Divisible pair or something, just give a thought about the remainders
+
+
+
