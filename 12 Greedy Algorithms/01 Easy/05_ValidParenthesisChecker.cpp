@@ -1,3 +1,10 @@
+// the concept of this question is to use two stacks, 
+// one to store '(' and one to store '*' 
+// and handle the edge cases such that 
+
+// try to perform operations on leftparen stack, to pop, if not available then use star stack
+
+// also return leftparen stack.size() simple 
 #include <bits/stdc++.h>
 using namespace std;
 
