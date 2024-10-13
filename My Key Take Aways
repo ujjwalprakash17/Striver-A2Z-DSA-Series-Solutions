@@ -1,0 +1,4 @@
+1. When the problem is based on intervals, where we need to find intervals
+type 1: minimum no of groups required to form non overlapping intervals.  
+    maximum number of overlapping intervals at any time = minimum number of groups required, such that
+    no two intervals should be overlapping. 
