@@ -2,34 +2,31 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int solution(int row, int col, vector<vector<int>> &matrix)
+int solution(int row, int col, vector<vector<int>> &matrix, vector<vector<int>> &dp)
 {
+    // base case
+    if (col < 0 || col >= matrix.size())
+        return INT_MAX;
     if (row == 0)
-    {
-        int mini = INT_MAX;
-        for (int k = col - 1; k <= col + 1; k++)
-        {
-            if (k >= 0 && k < matrix[0].size() - 1)
-                mini = min(mini, matrix[row][k]);
-        }
-        return mini;
-    }
-    int mini = INT_MAX;
-    for(int i = col - 1; i <= col + 1 ; i++)
-    {
-        int currVal = INT_MAX;
-        if(i >= 0 && i < matrix.size() - 1)
-        currVal = matrix[row][i] + solution(row -1, i, matrix);
-        mini = min(mini, currVal);
-    }
-    return mini;
+        return matrix[0][col];
+    if (dp[row][col] != -1)
+        return dp[row][col];
+    int ld = solution(row - 1, col - 1, matrix, dp);
+    int up = solution(row - 1, col, matrix, dp);
+    int rd = solution(row - 1, col + 1, matrix, dp);
+    return dp[row][col] = matrix[row][col] + min(up, min(ld, rd));
 }
 
 int minFallingPathSum(vector<vector<int>> &matrix)
 {
-    // base case
     int n = matrix.size();
-    return solution(0,)
+    int ans = INT_MAX;
+    vector<vector<int>> dp(n , vector<int> (n , -1));
+    for (int i = 0; i < n; i++)
+    {
+        ans = min(ans, solution(n - 1, i, matrix, dp));
+    }
+    return ans;
 }
 
 int main()
