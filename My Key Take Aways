@@ -7,8 +7,21 @@
    Approach : Based on the inteval Value we need to find the number of occurance of elements in that interval for
    Ex : [[0, 2] , [1,4], [0, 5], [3, 5]] is poore interval me 1 kitni baar hai 0, kitni baar
    also both inclusive
-   Solution : har interval ke starting index ko +1 kro aur ending element + 1 ko -1 kro
+   Solution : har interval ke starting index ko +1 kro aur (ending element + 1) ko -1 kro
    for example
    index -> [0] => val = 1;
    index -> [3] => val = -1;
    aur aisa krte krte phir har ek element ko array ke each element ke prefixSum ke value se replace krte chalo
+
+3. Take K of Each Character From Left and Right:
+   Problem : Read the problem and then you will know that we need to count the value from both sides and which side
+   to choose first is very tough to find out.
+   we can't even apply dp.
+   In this case we need to use sliding window, but
+   -> Very Important : to apply sliding window on two ends of the array,
+   we can also use Reverse engineering and will try to find out the middle window where out of the windows elements
+   occurances are greater than >= k.
+   we need to maximize the size of windows so that we can extend the window, and
+   this is what our approach will be.
+
+4.
