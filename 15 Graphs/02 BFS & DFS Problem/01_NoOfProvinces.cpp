@@ -1,37 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void dfsTraversal(int node, vector<int> &visited, vector<int> adj[])
+void dfsTraversal(int node, vector<vector<int>> &adjList, vector<int> &visited)
 {
     visited[node] = 1;
-    for(auto it: adj[node])
+    for (int i : adjList[node])
     {
-        if(!visited[it])
-        dfsTraversal(it, visited, adj);
+        if (!visited[i])
+            dfsTraversal(i, adjList, visited);
     }
-
 }
 
 int findCircleNum(vector<vector<int>> &isConnected)
 {
     int V = isConnected.size();
-    vector<int> adj[V];
-    for(int i = 0;i  < V; i++)
+    vector<vector<int>> adjList(V);
+    for (int i = 0; i < V; i++)
     {
-        for(int j = 0; j < V ; j++)
+        for (int j = 0; j < isConnected[i].size(); j++)
         {
-            if(isConnected[i][j] == 1)
+            int val = isConnected[i][j];
+            if (val == 1)
             {
-                adj[i].push_back(j);
-                adj[j].push_back(i);
+                adjList[i].push_back(j);
+                adjList[j].push_back(i);
             }
         }
     }
+    int cnt = 0;
     vector<int> visited(V, 0);
-    for(int i = 0; i < V; i++)
+    for (int i = 0; i < V; i++)
     {
-        dfsTraversal(i, visited, adj);
+        if (!visited[i])
+        {
+            dfsTraversal(i, adjList, visited);
+            cnt++;
+        }
     }
+    return cnt;
 }
 
 int main()

@@ -24,4 +24,14 @@
    we need to maximize the size of windows so that we can extend the window, and
    this is what our approach will be.
 
-4.
+4. finding the pivot element in binarySearch 
+   finding the smallest element in sorted and rotated array
+   Approach : 
+   1. Tip : Whenever we need not to check last element, we can keep e = mid, and 
+   if we need to check startInd then we can keep it as s = mid + 1;
+   Now whenever the value of mid is smaller than the value of end 
+   then e = mid; 
+   else s = mid + 1;
+   return the start Index 
+
+   
