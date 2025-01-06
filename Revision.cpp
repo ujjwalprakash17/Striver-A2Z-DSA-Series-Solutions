@@ -1,47 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void dfsTraversal(int node, vector<vector<int>> &adjList,  vector<int> &visited)
+string shiftingLetters(string s, vector<vector<int>> &shifts)
 {
-    visited[node] = 1;
-    for(int i : adjList[node])
+    int n = s.size();
+    vector<int> freq(n + 2, 0);
+    for (auto it : shifts)
     {
-        if(!visited[i])
-        dfsTraversal(i, adjList, visited);
-    }   
-}
-
-int findCircleNum(vector<vector<int>> &isConnected)
-{
-    int V = isConnected.size();
-    vector<vector<int>> adjList(V);
-    for (int i = 0; i < V; i++)
-    {
-        for (int j = 0; j < isConnected[i].size(); j++)
+        int start = it[0];
+        int end = it[1];
+        int direc = it[2];
+        if (direc == 1)
         {
-            int val = isConnected[i][j];
-            if (val == 1)
-            {
-                adjList[i].push_back(j);
-                adjList[j].push_back(i);
-            }
+            freq[start]++;
+            freq[end + 1]--;
+        }
+        else
+        {
+            freq[start]--;
+            freq[end + 1]++;
         }
     }
-    int cnt = 0;
-    vector<int> visited(V, 0);
-    for(int i = 0; i < V ; i++)
+    int shift = 0;
+    for (int i = 0; i < n; ++i)
     {
-        if(!visited[i])
-        {
-            dfsTraversal(i, adjList, visited);
-            cnt++;
-        }
+        shift += freq[i];
+        shift %= 26;                                 // Because there are 26 letters in the alphabet
+        s[i] = (s[i] - 'a' + shift + 26) % 26 + 'a'; // Ensuring the result is within 'a' to 'z' }
     }
-    return cnt;
+    return s;
 }
 
 int main()
 {
-
+    string s = "dztz";
+    vector<vector<int>> shifts = {{0, 0, 0}, {1, 1, 1}};
+    s = shiftingLetters(s, shifts);
+    cout << s << "\n";
+    // int val = (124 % 97) % 26;
+    // cout << val << "\n";
     return 0;
 }
