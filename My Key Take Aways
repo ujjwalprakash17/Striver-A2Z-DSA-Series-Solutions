@@ -24,4 +24,107 @@
    we need to maximize the size of windows so that we can extend the window, and
    this is what our approach will be.
 
-4.
+---------------------------------------------------------------------------------------------------
+
+Date : 09-12-24
+1. Sieve of Eratothenes
+    vector<int> sieveOfEratosthenes(int N) {
+        vector<bool> isPrime(N + 1, true); // Use boolean instead of integers 
+        vector<int> ans; 
+        // Mark 0 and 1 as non-prime 
+        isPrime[0] = isPrime[1] = false; 
+        for (int i = 2; i * i <= N; i++) { 
+        if (isPrime[i]) { 
+            // Start marking from i*i, not from 2*i 
+            for (int j = i * i; j <= N; j += i) { 
+                isPrime[j] = false; 
+                } 
+            } 
+        } 
+        for (int i = 2; i <= N; i++) { 
+            if (isPrime[i]) { 
+                ans.push_back(i); 
+            } 
+        } 
+        return ans;
+    }
+2. To Check whether an long long is an Integer Use condition like : 
+    long long v = some_value;
+    if(v == (int) v)
+        return true; 
+
+3.  Gcd Code : 
+    int gcd(int a, int b){
+        if(b == 0) 
+            return a;
+        return gcd(b, a % b);
+    }
+
+4. Minimum Jumps 
+    Approach : Greedy Approach will work there
+    Code : 
+    int minJumps(vector<int> &arr){
+        // code here
+        if (arr[0] == 0)
+            return -1;
+        int noOfJumps = 1;
+        int i = 1, remJumps = arr[0];
+        int n = arr.size();
+        while (i < n)
+        {
+            int maxJump = 1;
+            while (remJumps--)
+            {
+                maxJump = max(maxJump - 1, arr[i]);
+                if (i == n - 1)
+                    return noOfJumps;
+                i++;
+            }
+            if (maxJump <= 0)
+                return -1;
+            noOfJumps++;
+            remJumps = maxJump;
+        }
+        return noOfJumps;
+    }
+
+5. Print All Divisors from 1 to N
+    Approach : We need to find the check for every number 
+            for every number will check will the sqrt of the number only
+    Code : 
+    int sumOfDivisors(int n) {
+        // Write Your Code here
+        long long totalSum = 0;
+        for(int i = 1; i <= n ; i++){
+            for(int j = 1; j * j <= i ; j++){
+                if(i % j == 0){
+                    totalSum += j;
+                    if(j != i / j){
+                        totalSum += i / j;
+                    }
+                }
+            }
+        }
+        return (int)totalSum ;
+    }
+
+6. Max Prod Array
+   Here we will loop from left and right and try to find the max sub array 
+   also will move from right to left and  try to find max sub array 
+   Note : Reset the prod val to 1, whenever encountered 0. 
+
+7. Next Permutation : 
+    Approach : 
+    1. Find the first element from right, where nums[i-1] < nums[i]
+    2. Find the first element from right where nums[i] > nums[ind]
+    3. Swap the element at nums[i] and nums[ind]
+    4. Reverse the array from ind + 1 to end of the array.
+
+8. Longest Consequtive sequence 
+    Approach : 
+    1. Store all the elements in the set
+    2. Loop throught the set and check if the element -1 of the current element exists or not 
+    3. If not then start the loop from the current element + 1, and keep the counter as cnt + 1, and update the current val + 1
+    4. Update the max value of the cnt and return the max value as longest
+
+9. 
