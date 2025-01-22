@@ -24,6 +24,48 @@
    we need to maximize the size of windows so that we can extend the window, and
    this is what our approach will be.
 
+4. finding the pivot element in binarySearch 
+   finding the smallest element in sorted and rotated array
+   Approach : 
+   1. Tip : Whenever we need not to check last element, we can keep e = mid, and 
+   if we need to check startInd then we can keep it as s = mid + 1;
+   Now whenever the value of mid is smaller than the value of end 
+   then e = mid; 
+   else s = mid + 1;
+   return the start Index 
+
+
+5. When the problem is based on intervals, where we need to find intervals
+   type 1: minimum no of groups required to form non overlapping intervals.  
+   maximum number of overlapping intervals at any time = minimum number of groups required, such that
+   no two intervals should be overlapping.
+
+6. Read about the concept of problem : Zero Array Transformation I
+   Approach : Based on the inteval Value we need to find the number of occurance of elements in that interval for
+   Ex : [[0, 2] , [1,4], [0, 5], [3, 5]] is poore interval me 1 kitni baar hai 0, kitni baar
+   also both inclusive
+   Solution : har interval ke starting index ko +1 kro aur (ending element + 1) ko -1 kro
+   for example
+   index -> [0] => val = 1;
+   index -> [3] => val = -1;
+   aur aisa krte krte phir har ek element ko array ke each element ke prefixSum ke value se replace krte chalo
+
+7. Take K of Each Character From Left and Right:
+   Problem : Read the problem and then you will know that we need to count the value from both sides and which side
+   to choose first is very tough to find out.
+   we can't even apply dp.
+   In this case we need to use sliding window, but
+   -> Very Important : to apply sliding window on two ends of the array,
+   we can also use Reverse engineering and will try to find out the middle window where out of the windows elements
+   occurances are greater than >= k.
+   we need to maximize the size of windows so that we can extend the window, and
+   this is what our approach will be.
+
+4.
+
+
+   
+
 ---------------------------------------------------------------------------------------------------
 
 Date : 09-12-24
