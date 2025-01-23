@@ -28,7 +28,7 @@ bool isBipartite(vector<vector<int>> &graph)
                         q.push(neighbour);
                         color[neighbour] = 1 - color[currNode];
                     }
-                    else
+                    else if (color[neighbour] == color[currNode])
                     {
                         return false;
                     }
