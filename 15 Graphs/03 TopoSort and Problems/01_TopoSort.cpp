@@ -35,8 +35,6 @@ vector<int> topologicalSort(vector<vector<int>> &adj)
         ans.push_back(node);
         st.pop();
     }
-    // reverse
-    reverse(ans.begin(), ans.end());
     return ans;
 }
 
