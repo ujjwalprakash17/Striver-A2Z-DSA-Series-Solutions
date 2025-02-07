@@ -1,38 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void merge(vector<int> &arr, int s, int mid, int e)
+vector<vector<int>> levelOrder(TreeNode *root)
 {
-    vector<int> temp;
-    int i = s, j = mid + 1;
-    while (i <= mid && j <= e)
+    queue<TreeNode *> q;
+    q.push(root);
+    vector<vector<int>> ans;
+    if(root == nullptr) return ans;
+    while(!q.empty())
     {
-        if (arr[i] < arr[j])
-        {
-            temp.push_back(arr[i++]);
+        int levelSize = q.size();
+        vector<int> temp;
+        for(int i = 0; i < levelSize ; i++){
+            TreeNode *curr = q.front();
+            q.pop();
+            if(curr->left){
+                q.push(curr->left);
+            }
+            if(curr->right){
+                q.push(curr->right);
+            }
+            temp.push_back(curr->val);
         }
-        else
-            temp.push_back(arr[j++]);
+        ans.push_back(temp);
     }
-    while (i <= mid)
-    {
-        temp.push_back(arr[i++]);
-    }
-    while (j <= e)
-        temp.push_back(arr[j++]);
-    for (int k = s; k <= e; k++)
-        arr[k] = temp[k - s];
-}
-
-void mergeSort(vector<int> &arr, int l, int r)
-{
-    if (l < r)
-    {
-        int mid = l + (r - l) / 2;
-        mergeSort(arr, l, mid);
-        mergeSort(arr, mid + 1, r);
-        merge(arr, l, mid, r);
-    }
+    return ans;
 }
 
 int main()
