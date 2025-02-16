@@ -1,51 +1,46 @@
 #include <bits/stdc++.h>
 using namespace std;
 // cycle detection in an undirected graph using bfs
-bool bfsTraversal(int node, vector<vector<int>> &adj, vector<int> &visited)
-{
-    queue<pair<int, int>> q;
-    //{currNode, prevNode}
-    q.push({node, -1});
-    visited[node] = 1;
-    while (!q.empty())
-    {
-        int currNode = q.front().first;
-        int prevNode = q.front().second;
-        q.pop();
-        for (int neighbour : adj[currNode])
-        {
-            if (!visited[neighbour])
-            {
-                q.push({neighbour, currNode});
-                visited[neighbour] = 1;
-            }
-            else if (visited[neighbour] && neighbour != prevNode)
-                return true;
-        }
-    }
-    return false;
-}
-bool isCycle(vector<vector<int>> &adj)
-{
-    // Code here
-    int n = adj.size();
-    vector<int> visited(n, 0);
-    for (int i = 0; i < n; i++)
-    {
-        if (!visited[i])
-        {
-            if (bfsTraversal(i, adj, visited) == true)
-                return true;
-        }
-    }
-    return false;
-}
+// bool bfsTraversal(int node, vector<vector<int>> &adj, vector<int> &visited)
+// {
+//     queue<pair<int, int>> q;
+//     //{currNode, prevNode}
+//     q.push({node, -1});
+//     visited[node] = 1;
+//     while (!q.empty())
+//     {
+//         int currNode = q.front().first;
+//         int prevNode = q.front().second;
+//         q.pop();
+//         for (int neighbour : adj[currNode])
+//         {
+//             if (!visited[neighbour])
+//             {
+//                 q.push({neighbour, currNode});
+//                 visited[neighbour] = 1;
+//             }
+//             else if (visited[neighbour] && neighbour != prevNode)
+//                 return true;
+//         }
+//     }
+//     return false;
+// }
 
-int main()
-{
-
-    return 0;
-}
+// bool isCycle(vector<vector<int>> &adj)
+// {
+//     // Code here
+//     int n = adj.size();
+//     vector<int> visited(n, 0);
+//     for (int i = 0; i < n; i++)
+//     {
+//         if (!visited[i])         // take care of connected components very carefully
+//         {
+//             if (bfsTraversal(i, adj, visited) == true)
+//                 return true;
+//         }
+//     }
+//     return false;
+// }
 
 // #include <bits/stdc++.h>
 // using namespace std;
@@ -83,8 +78,8 @@ int main()
 //     }
 // }
 
-int main()
-{
+// int main()
+// {
 
-    return 0;
-}
+//     return 0;
+// }
