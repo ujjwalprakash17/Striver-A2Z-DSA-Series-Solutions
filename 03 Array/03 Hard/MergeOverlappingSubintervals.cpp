@@ -1,23 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool comp(vector<int> &a, vector<int> &b)
-{
-    return a[1] < b[1];
-}
-
+// //Approach : 
+// 1. sort the intervals first
+// 2. check first endtime and nexts start time if both are overlapping then merge threadmbcinfostruct
+// 3. if not overlapping then create a new interval and then check again and so on...
 vector<vector<int>> merge(vector<vector<int>> &intervals)
 {
-    sort(intervals.begin(), intervals.end(), comp);
+    sort(intervals.begin(), intervals.end());
+    vector<vector<int>> result;
+    for(int i = 0; i < intervals.size(); i++)
+    {
+        int startTime = intervals[i][0];
+        int endTime = intervals[i][1];
+        if(result.empty() || result.back()[1] < startTime)
+        {
+            result.push_back({startTime, endTime});
+        }else{
+            result.back()[1] = max(result.back()[1], endTime);
+        }
+    }
+    return result;
 }
 
 int main()
 {
-    vector<vector<int>> merge = {{1,4}, {2, 6}, {4, 1}};
-    sort(merge.begin(), merge.end());
-    for(auto it : merge){
-        cout << it[0] << " " << it[1] << "\n";
-    }
 
     return 0;
 }
