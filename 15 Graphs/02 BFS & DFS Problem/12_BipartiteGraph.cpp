@@ -4,8 +4,13 @@ using namespace std;
 // Approach :
 //  1. Bipartite graph : graphs whose every alternate node is either 0 and 1,
 //  2. every graph which is linear
-//  3. every odd no of cycle is not bi-partite
-//  4. Every even no of Cycle is bi-partite
+//  3. every odd length of cycle is not bi-partite
+//  4. Every even length  of Cycle is bi-partite
+
+// 1. will use to traverse as how we do in connected component only
+// 2. we are using bfs to traverse here
+
+
 bool isBipartite(vector<vector<int>> &graph)
 {
     int n = graph.size();
@@ -38,6 +43,8 @@ bool isBipartite(vector<vector<int>> &graph)
     }
     return true;
 }
+
+
 int main()
 {
 
