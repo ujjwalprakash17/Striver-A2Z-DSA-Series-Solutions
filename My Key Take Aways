@@ -186,4 +186,16 @@ Date : 09-12-24
     2. loop from 1 -> n and 1 -> m and check if any of them contains 0 then set both row and column to 0 
     3. at last check and set the first row and column if they contain 0;
 
-3. 
+3. Kanh's Algorithm (Topological Sort using BFS)
+    Approach : 
+    1. Store the indegree of all the nodes
+    2. Store the nodes with indegree 0 in the queue
+    3. Loop through the queue and pop the element and push the element in the answer
+    4. Decrease the indegree of the nodes and if the indegree becomes 0 then push the element in the queue
+
+4. Cycle Detection in a Directed Graph using BFS (using Kanh's Algorithm)
+    Approach : 
+    1. Doing usual Kanhs Algorithm
+    2. At last will check the answer array, if the size of ans array is equal to n then no cycle 
+    3. Since Kanhs Algorithm will only work for Directed Acyclic Graph
+    4. if the size of ans array is not equal to n then there is a cycle
