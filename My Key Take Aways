@@ -169,4 +169,21 @@ Date : 09-12-24
     3. If not then start the loop from the current element + 1, and keep the counter as cnt + 1, and update the current val + 1
     4. Update the max value of the cnt and return the max value as longest
 
-9. 
+
+
+
+
+26-02-25 -------> To Revise -  
+1. Maximum Absolute Sum of Any Subarray
+    Approach : 
+    1. Find the maximum subarray sum and minimum subarray sum (Kadane's Algorithm)
+    2. Return the maximum of the absolute value of the maximum subarray sum and minimum subarray sum
+    3. CRITICAL NOTE : initialise answer with the first value of array in both
+
+2. Set Matrix 0
+    Approach : 
+    1. check for the first row and col if they contain 0 or not
+    2. loop from 1 -> n and 1 -> m and check if any of them contains 0 then set both row and column to 0 
+    3. at last check and set the first row and column if they contain 0;
+
+3. 
