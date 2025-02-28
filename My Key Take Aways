@@ -201,3 +201,12 @@ Date : 09-12-24
     4. if the size of ans array is not equal to n then there is a cycle
 
 
+
+
+28-02-25
+1. Implement Trie
+    Approach : Using unordered_map
+    1. Create a TrieNode with unordered_map<char, TrieNode*>
+    2. Insert the word in the trie
+    3. Search the word in the trie
+    4. Search the prefix in the trie

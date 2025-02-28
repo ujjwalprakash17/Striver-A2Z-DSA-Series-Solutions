@@ -33,6 +33,7 @@ class Trie{
             // will move the current Trie to the child TrieNode
             node = node->children[c];
         }
+        node->is_end_of_word = true;
     }
     bool search(string word)
     {
