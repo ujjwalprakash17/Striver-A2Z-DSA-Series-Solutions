@@ -242,3 +242,11 @@ Date : 09-12-24
     Graph Note :
     Shortest Path → BFS
     Longest Path → DFS (with backtracking to unmark visited nodes)
+
+2. Closest Prime Numbers in Range (leetcode's Problem)
+    Algorithm : 
+    1. Sieve of Eratosthenes
+    2. Find the closest prime numbers in the range
+    3. Find the minimum difference between the prime numbers
+    4. Return the prime numbers with minimum difference
+      
