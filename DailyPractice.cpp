@@ -1,43 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void dfsTraversal(int stRow, int stCol, int dx, int dy, int currLength, int &ans, vector<vector<int>> &mat, vector<vector<int>> &visited)
+int factOfN(int n)
 {
-    int n = mat.size();
-    int m = mat[0].size();
-    visited[stRow][stCol] = 1;
-    if (stRow == dx && stCol == dy)
+    if (n == 0 || n == 1)
+        return 1;
+    int ans = 1;
+    for (int i = 1; i <= n; i++)
     {
-        ans = max(ans, currLength);
+        ans *= i;
     }
-    // doing something something
-    int delRow[] = {-1, 0, 1, 0};
-    int delCol[] = {0, 1, 0, -1};
-    for (int i = 0; i < 4; i++)
-    {
-        int nRow = stRow + delRow[i];
-        int nCol = stCol + delCol[i];
-        if (nRow >= 0 && nRow < n && nCol >= 0 && nCol < m && mat[nRow][nCol] == 1 && !visited[nRow][nCol])
-        {
-            dfsTraversal(nRow, nCol, dx, dy, currLength + 1, ans, mat, visited);
-        }
-    }
-    visited[stRow][stCol] = 0;
+    return ans;
 }
 
-int longestPath(int n, int m, vector<vector<int>> &mat, int sx, int sy, int dx, int dy)
+int findPrimePermutations(int n)
 {
-    // Write your code here
-    if (mat[sx][sy] == 0)
-        return -1;
-    vector<vector<int>> visited(n, vector<int>(m, 0));
-    int ans = 0;
-    dfsTraversal(sx, sy, dx, dy, 0, ans, mat, visited);
+    // Write your code here.
+    vector<int> primeVal(n + 1, false);
+    for (int i = 2; i <= n; i++)
+    {
+        for (int j = i * 2; j <= n; j += i)
+        {
+            primeVal[j] = true;
+        }
+    }
+    int primeNumberCnt = 0;
+    for (int i = 2; i <= n; i++)
+    {
+        if (!primeVal[i])
+            primeNumberCnt++;
+    }
+    int ans = factOfN(primeNumberCnt);
     return ans;
 }
 
 int main()
 {
-
+    int n = 3;
+    cout << findPrimePermutations(4);
+    
     return 0;
 }
