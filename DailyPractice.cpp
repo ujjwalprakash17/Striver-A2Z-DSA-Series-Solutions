@@ -1,43 +1,40 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int factOfN(int n)
+int minOperations(vector<vector<int>> &grid, int x)
 {
-    if (n == 0 || n == 1)
-        return 1;
-    int ans = 1;
-    for (int i = 1; i <= n; i++)
+    int n = grid.size();
+    int m = grid[0].size();
+    vector<int> flattenArr(m * n);
+    // flatten the array first
+    int k = 0;
+    for (int i = 0; i < n; i++)
     {
-        ans *= i;
-    }
-    return ans;
-}
-
-int findPrimePermutations(int n)
-{
-    // Write your code here.
-    vector<int> primeVal(n + 1, false);
-    for (int i = 2; i <= n; i++)
-    {
-        for (int j = i * 2; j <= n; j += i)
+        for (int j = 0; j < m; j++)
         {
-            primeVal[j] = true;
+            flattenArr[k++] = grid[i][j];
         }
     }
-    int primeNumberCnt = 0;
-    for (int i = 2; i <= n; i++)
+    // check for feasibility
+    int remValue= flattenArr[0] % x;
+    int arrSize = flattenArr.size();
+    for(int i = 0; i < arrSize ; i++)
     {
-        if (!primeVal[i])
-            primeNumberCnt++;
+        if(flattenArr[i] % k != remValue) return -1;
     }
-    int ans = factOfN(primeNumberCnt);
-    return ans;
+    //now we will try to find the middle point
+    sort(flattenArr.begin(), flattenArr.end());
+    int midPointValue = flattenArr[arrSize / 2];
+    int totalNumberOfSteps = 0;
+    for(int i = 0; i < arrSize ; i++)
+    {
+        totalNumberOfSteps += (abs(flattenArr[i] - midPointValue)) / x;
+    }
+    return totalNumberOfSteps;
 }
 
 int main()
 {
-    int n = 3;
-    cout << findPrimePermutations(4);
-    
+
     return 0;
 }

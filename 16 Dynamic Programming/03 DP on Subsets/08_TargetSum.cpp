@@ -1,41 +1,41 @@
-#include <bits/stdc++.h>
-using namespace std;
+// #include <bits/stdc++.h>
+// using namespace std;
 
-int solution(int ind, int target, vector<int> &nums, int val, vector<vector<int>> &dp)
-{
-    // base case
-    if (ind == 0)
-    {
-        if (target == 0 && nums[0] == 0)
-            return 2;
-        else if (target - nums[0] == 0)
-            return 1;
-        else if (target + nums[0] == 0)
-            return 1;
-        else
-            return 0;
-    }
-    if (dp[ind][target + val] != -1)
-        return dp[ind][target + val];
-    // main cases
-    int takePos = solution(ind - 1, target + nums[ind], nums, val, dp);
-    int takeNeg = solution(ind - 1, target - nums[ind], nums, val, dp);
-    return dp[ind][target + val] = takePos + takeNeg;
-}
+// int solution(int ind, int target, vector<int> &nums, int val, vector<vector<int>> &dp)
+// {
+//     // base case
+//     if (ind == 0)
+//     {
+//         if (target == 0 && nums[0] == 0)
+//             return 2;
+//         else if (target - nums[0] == 0)
+//             return 1;
+//         else if (target + nums[0] == 0)
+//             return 1;
+//         else
+//             return 0;
+//     }
+//     if (dp[ind][target + val] != -1)
+//         return dp[ind][target + val];
+//     // main cases
+//     int takePos = solution(ind - 1, target + nums[ind], nums, val, dp);
+//     int takeNeg = solution(ind - 1, target - nums[ind], nums, val, dp);
+//     return dp[ind][target + val] = takePos + takeNeg;
+// }
 
-int findTargetSumWays(vector<int> &nums, int target)
-{
-    int n = nums.size();
-    int offSet = 0;
-    for (int i : nums)
-    {
-        offSet += i;
-    }
-    if (abs(target) > offSet)
-        return 0;
-    vector<vector<int>> dp(n, vector<int>((2 * offSet) + 1, -1));
-    return solution(n - 1, target, nums, offSet, dp);
-}
+// int findTargetSumWays(vector<int> &nums, int target)
+// {
+//     int n = nums.size();
+//     int offSet = 0;
+//     for (int i : nums)
+//     {
+//         offSet += i;
+//     }
+//     if (abs(target) > offSet)
+//         return 0;
+//     vector<vector<int>> dp(n, vector<int>((2 * offSet) + 1, -1));
+//     return solution(n - 1, target, nums, offSet, dp);
+// }
 
 //remove unnecessary dp calls to reduce the overhead of offSet
 
@@ -70,11 +70,11 @@ int findTargetSumWays(vector<int> &nums, int target)
 //     return solution(n - 1, target, nums, dp);
 // }
 
-int main()
-{
+// int main()
+// {
 
-    return 0;
-}
+//     return 0;
+// }
 
 
 // int findTargetSumWays(vector<int> &nums, int target) {
@@ -119,3 +119,15 @@ int main()
 //     string key = to_string(n - 1) + "," + to_string(target);
 //     return (dp.find(key) != dp.end()) ? dp[key] : 0;
 // }
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+
+int main() {
+    
+    return 0;
+}
