@@ -1,40 +1,48 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int minOperations(vector<vector<int>> &grid, int x)
+long long mostPoints(vector<vector<int>> &questions)
 {
-    int n = grid.size();
-    int m = grid[0].size();
-    vector<int> flattenArr(m * n);
-    // flatten the array first
-    int k = 0;
-    for (int i = 0; i < n; i++)
+    int n = questions.size(); 
+    vector<long long> dp(n + 1, 0);
+    for(int ind = n -1  ; ind >= 0 ; ind--)
     {
-        for (int j = 0; j < m; j++)
-        {
-            flattenArr[k++] = grid[i][j];
+        long long notPick = dp[ind+1];
+        int nextIndex = ind + questions[ind][1] + 1;
+        long long pick = questions[ind][0];
+        if(nextIndex <= n){
+            pick += dp[nextIndex];
         }
+        dp[ind] = max(pick , notPick);
     }
-    // check for feasibility
-    int remValue= flattenArr[0] % x;
-    int arrSize = flattenArr.size();
-    for(int i = 0; i < arrSize ; i++)
-    {
-        if(flattenArr[i] % k != remValue) return -1;
-    }
-    //now we will try to find the middle point
-    sort(flattenArr.begin(), flattenArr.end());
-    int midPointValue = flattenArr[arrSize / 2];
-    int totalNumberOfSteps = 0;
-    for(int i = 0; i < arrSize ; i++)
-    {
-        totalNumberOfSteps += (abs(flattenArr[i] - midPointValue)) / x;
-    }
-    return totalNumberOfSteps;
+    return dp[0];
 }
+
+long long solution(int ind, vector<vector<int>> &questions, vector<long long> &dp)
+{
+    int n = questions.size();
+    if (ind >= n)
+        return 0;
+    if (dp[ind] != -1)
+        return dp[ind];
+    long long notPick = solution(ind + 1, questions, dp);
+    long long pick = questions[ind][0] + solution(ind + (questions[ind][1] + 1), questions, dp);
+    return dp[ind] = max(pick, notPick);
+}
+
+long long mostPoints(vector<vector<int>> &questions)
+{
+    int n = questions.size();
+    // we will need an offset method because the value of ind could be varying
+    vector<long long> dp(n, -1);
+    return solution(0, questions, dp);
+}
+
 
 int main()
 {
+    vector<vector<int>> sample = {{3, 2}, {4, 3}, {4, 4}, {2, 5}};
+    cout << mostPoints(sample);
 
     return 0;
 }
