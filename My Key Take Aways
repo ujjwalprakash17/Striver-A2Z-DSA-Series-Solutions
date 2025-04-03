@@ -258,4 +258,14 @@ Date : 09-12-24
 
 
 
-26-03-2025
+03-04-25
+Problem Name - Maximum Ordered Triplet - I and II (look for link of leetcode) 
+    Observation - ye problem me aapko ye dekhna hai ki aapko maximum ordered triplet kaise milega
+    Approach - 
+
+    Given - (x - y ) * z ko maximize krna hai, toh we need to minimize the value of y and maximise the value of x and y. 
+    how can we do this
+
+    see sabse pahele ek saath 2 element(x, z) dono ko maximize nhi kr payenge
+    toh hamne kya kiya we found the maximum right value of each element yaani ki ----- Z
+    and then hamne maximum value of left of y, yaani ki x ke maximum value of liya and then we kept on storing it in a variable.
