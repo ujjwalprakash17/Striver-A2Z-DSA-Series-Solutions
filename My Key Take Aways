@@ -269,3 +269,11 @@ Problem Name - Maximum Ordered Triplet - I and II (look for link of leetcode)
     see sabse pahele ek saath 2 element(x, z) dono ko maximize nhi kr payenge
     toh hamne kya kiya we found the maximum right value of each element yaani ki ----- Z
     and then hamne maximum value of left of y, yaani ki x ke maximum value of liya and then we kept on storing it in a variable.
+
+
+
+
+Lambda Function Syntax
+    cpp[capture](parameters) -> return_type { body }
+    For sorting, the common pattern is:
+    cpp[](const Type& a, const Type& b) { return condition; }
