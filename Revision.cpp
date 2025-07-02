@@ -75,3 +75,35 @@ int main()
 
     return 0;
 }
+
+
+1. sort(nums.begin(), nums.end(), [](const int &a, const int &b){
+    return a % 10 < b % 10;
+});
+
+2. a. sort(students.begin(), students.end(), [](const pair<string, int> &a, const pair<string, int> &b){
+    if(a.second != b.second) 
+    return a.second > b.second;
+    return a.first < a.second;
+});
+
+3. sort(arrays.begin(), arrays.end(), [](const vector<int> &a, const vector<int>&b){
+    long long sumOfA = accumulate(a.begin(), a.end(), 0LL);
+    long long sumOfb = accumulate(b.begin(), b.end(), 0LL);
+    return sumOfA > sumOfb;
+});
+
+int findVowelCnt(string &s)
+{
+    int cnt = 0;
+    for(char ch : s)
+    {
+        if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') cnt++;
+    }
+}
+
+4. sort(words.begin(), words.end(), [](const string &a, const string &b){
+    int vowelCntOfA = findVowelCnt(a); 
+    int vowelCntOfB = findVowelCnt(b); 
+    return vowelCntOfA < vowelCntOfB;
+});
