@@ -35,3 +35,16 @@ int main()
 
     return 0;
 }
+
+
+// High-Level Approach for Combination Sum II:
+// Goal: Find all unique combinations where numbers sum to target, each number used at most once.
+// Key Steps:
+
+// Sort the array - groups duplicates together
+// Use backtracking - try including/excluding each element
+// Skip duplicates at same level - when you have [1,1,2] and you skip the first 1, also skip the second 1 at that same recursion level
+// Early termination - stop exploring when current number > remaining target
+
+// Core Logic: At each position, decide whether to include the current number or not. If you include it, reduce the target and move to next position. If you skip it, also skip all identical numbers at the same level to avoid duplicate combinations.
+// Why it works: Sorting + level-wise duplicate skipping ensures you get all unique combinations without needing expensive set operations to filter duplicates later.
