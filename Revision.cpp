@@ -1,74 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// bool solution(int ind, vector<int> &arr, int target, vector<vector<int>> &dp)
-// {
-//     if (ind == arr.size())
-//     {
-//         return target == 0;
-//     }
+// 1. will use to traverse as how we do in connected component only
+// 2. we are using bfs to traverse here
 
-//     if (dp[ind][target] != -1)
-//         return dp[ind][target];
-
-//     bool notPick = solution(ind + 1, arr, target, dp);
-//     bool pick = false;
-//     if (arr[ind] <= target)
-//     {
-//         pick = solution(ind + 1, arr, target - arr[ind], dp);
-//     }
-
-//     return dp[ind][target] = pick || notPick;
-// }
-
-// bool checkSubsequenceSum(int n, vector<int> &arr, int k)
-// {
-//     // Code here
-//     vector<vector<int>> dp(n, vector<int>(k + 1, -1));
-//     return solution(0, arr, k, dp);
-// }
-
-vector<int> maxSubsequence(vector<int> &nums, int k)
-{
-    int n = nums.size();
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-
-    for (int i = 0; i < n; i++)
-    {
-        if (pq.size() < k)
-        {
-            pq.push({nums[i], i});
-        }
-        else if (nums[i] > pq.top().first)
-        {
-            pq.pop();
-            pq.push({nums[i], i});
-        }
-    }
-
-    // Extract all elements from priority queue into a vector
-    vector<pair<int, int>> selected;
-    while (!pq.empty())
-    {
-        selected.push_back(pq.top());
-        pq.pop();
-    }
-
-    // Sort by index (second element of pair)
-    sort(selected.begin(), selected.end(), [](const pair<int, int> &a, const pair<int, int> &b)
-         {
-             return a.second < b.second; // Sort by index in ascending order
-         });
-
-    // Build result vector with just the values
-    vector<int> result;
-    for (auto &p : selected)
-    {
-        result.push_back(p.first); // Add the value (not the index)
-    }
-
-    return result;
-}
 
 int main()
 {
@@ -76,34 +11,183 @@ int main()
     return 0;
 }
 
+// flood fill
 
-1. sort(nums.begin(), nums.end(), [](const int &a, const int &b){
-    return a % 10 < b % 10;
-});
+// vector<vector<int>> floodFill(vector<vector<int>> &image, int sr, int sc, int color)
+// {
+//     int startingColor = image[sr][sc];
+//     queue<pair<int, int>> q;
+//     int n = image.size();
+//     int m = image[0].size();
+//     vector<vector<int>> visited(n, vector<int>(m , 0));
+//     q.push({sr, sc});
+//     image[sr][sc] = color;
+//     while(!q.empty())
+//     {
+//         int currRow = q.front().first;
+//         int currCol = q.front().second;
+//         q.pop();
+//         int delRow[] = {-1, 0, 1, 0};
+//         int delCol[] = {0, 1, 0, -1};
+//         for(int i = 0 ; i < 4; i++)
+//         {
+//             int nRow = currRow + delRow[i];
+//             int nCol = currCol + delCol[i];
+//             if(nRow >= 0 && nRow < n && nCol >= 0 && nCol < m && image[nRow][nCol] == startingColor && !visited[nRow][nCol]){
+//                 q.push({nRow,nCol});
+//                 image[nRow][nCol] = color;
+//                 visited[nRow][nCol] = 1;
+//             }
 
-2. a. sort(students.begin(), students.end(), [](const pair<string, int> &a, const pair<string, int> &b){
-    if(a.second != b.second) 
-    return a.second > b.second;
-    return a.first < a.second;
-});
+//         }
+//     }
+//     return image;
+// }
 
-3. sort(arrays.begin(), arrays.end(), [](const vector<int> &a, const vector<int>&b){
-    long long sumOfA = accumulate(a.begin(), a.end(), 0LL);
-    long long sumOfb = accumulate(b.begin(), b.end(), 0LL);
-    return sumOfA > sumOfb;
-});
+// cycle detection in graph using bfs
+//  bool checkCycleUsingBFS(int start, vector<int> &visited, vector<vector<int>> &adjList)
+//  {
+//      int n = adjList.size();
+//      vector<int> parent(n, -1);
+//      visited[start] = 1;
+//      parent[start] = -1;
+//      queue<int> q;
+//      q.push(start);
+//      while (!q.empty())
+//      {
+//          int curr = q.front();
+//          q.pop();
+//          for (int neighbour : adjList[curr])
+//          {
+//              if (!visited[neighbour])
+//              {
+//                  q.push(neighbour);
+//                  visited[neighbour] = 1;
+//                  parent[neighbour] = curr;
+//              }
+//              else if (parent[curr] != neighbour)
+//                  return true;
+//          }
+//      }
+//      return false;
+//  }
 
-int findVowelCnt(string &s)
-{
-    int cnt = 0;
-    for(char ch : s)
-    {
-        if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') cnt++;
-    }
-}
+// // using bfs method
+// bool isCycle(int V, vector<vector<int>> &edges)
+// {
+//     // convert the edges into adjList first
+//     vector<vector<int>> adjList(V);
+//     for (int i = 0; i < edges.size(); i++)
+//     {
+//         adjList[edges[i][0]].push_back(edges[i][1]);
+//         adjList[edges[i][1]].push_back(edges[i][0]);
+//     }
+//     // consider that nodes can be in different components
+//     vector<int> visited(V, 0);
+//     for (int i = 0; i < V; i++)
+//     {
+//         if (!visited[i])
+//         {
+//             bool cyclePresent = checkCycleUsingBFS(i, visited, adjList);
+//             if (cyclePresent == true)
+//                 return true;
+//         }
+//     }
+//     return false;
+// }
 
-4. sort(words.begin(), words.end(), [](const string &a, const string &b){
-    int vowelCntOfA = findVowelCnt(a); 
-    int vowelCntOfB = findVowelCnt(b); 
-    return vowelCntOfA < vowelCntOfB;
-});
+// cycle detection in graph in directed one using dfsTraversal
+//  bool dfsTraversal(int start, vector<int> &visited, vector<int> &parent,  vector<vector<int>> &adjList)
+//  {
+//      visited[start] = 1;
+//      for(int neighbour : adjList[start])
+//      {
+//          if(!visited[neighbour])
+//          {
+//              parent[neighbour] = start;
+//              bool val = dfsTraversal(neighbour, visited, parent, adjList);
+//              if(val) return true;
+//          }else if(parent[start] != neighbour){
+//              return true;
+//          }
+//      }
+//      return false;
+//  }
+
+// bool isCycle(int V, vector<vector<int>> &edges)
+// {
+//     // convert the edges into adjList first
+//     vector<int> visited(V, 0);
+//     vector<int> parent(V, -1);
+//     vector<vector<int>> adjList(V);
+//     for(int i = 0; i < edges.size(); i++)
+//     {
+//         int u = edges[i][0];
+//         int v = edges[i][1];
+//         adjList[u].push_back(v);
+//         adjList[v].push_back(u);
+//     }
+//     for(int i = 0; i < V ; i++)
+//     {
+//         if(!visited[i]){
+//             bool val = dfsTraversal(i, visited, parent, adjList);
+//             if(val) return val;
+//         }
+//     }
+//     return false;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//check if graph is bipartite or not 
+// bool bfsTraversal(int i, vector<int> &color ,vector<vector<int>> &graph)
+// {
+//     queue<int> q;
+//     q.push(i);
+//     color[i] = 0;
+//     while (!q.empty())
+//     {
+//         int currNode = q.front();
+//         q.pop();
+//         for (int neighbour : graph[currNode])
+//         {
+//             if (color[neighbour] == -1)
+//             {
+//                 q.push(neighbour);
+//                 color[neighbour] = 1 - color[currNode];
+//             }
+//             else if (color[neighbour] == color[currNode])
+//             {
+//                 return false;
+//             }
+//         }
+//     }
+// }
+
+// bool isBipartite(vector<vector<int>> &graph)
+// {
+//     int n = graph.size();
+//     vector<int> color(n, -1);
+//     for (int i = 0; i < n; i++)
+//     {
+//         if (color[i] == -1)
+//         {
+//             bool val = bfsTraversal(i, color, graph);
+//             if(!val) return !val;
+//         }
+//     }
+//     return true;
+// }
