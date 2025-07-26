@@ -50,3 +50,44 @@ int main()
 
     return 0;
 }
+
+
+
+bool bfsTraversal(int i, vector<int> &color ,vector<vector<int>> &graph)
+{
+    queue<int> q;
+    q.push(i);
+    color[i] = 0;
+    while (!q.empty())
+    {
+        int currNode = q.front();
+        q.pop();
+        for (int neighbour : graph[currNode])
+        {
+            if (color[neighbour] == -1)
+            {
+                q.push(neighbour);
+                color[neighbour] = 1 - color[currNode];
+            }
+            else if (color[neighbour] == color[currNode])
+            {
+                return false;
+            }
+        }
+    }
+}
+
+bool isBipartite(vector<vector<int>> &graph)
+{
+    int n = graph.size();
+    vector<int> color(n, -1);
+    for (int i = 0; i < n; i++)
+    {
+        if (color[i] == -1)
+        {
+            bool val = bfsTraversal(i, color, graph);
+            if(!val) return !val;
+        }
+    }
+    return true;
+}
