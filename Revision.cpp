@@ -1,47 +1,47 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool dfsTraversal(int start, vector<int> &visited, vector<int>& recStack, vector<vector<int>> &adjList)
+bool dfsTraversal(int start, vector<int> &visited, vector<int> &path, vector<vector<int>> &adjList)
 {
     visited[start] = 1;
-    recStack[start] = 1;
-    for (int neighbour : adjList[start]) {
-        if (!visited[neighbour]) {
-            if (dfsTraversal(neighbour, visited, recStack, adjList)) {
-                return true;  // Cycle found in deeper recursion
-            }
-        } else if (recStack[neighbour]) {
-            // Back edge found - neighbour is in current recursion path
-            return true;  // CYCLE DETECTED
+    path[start] = 1;
+    for(int neighbour : adjList[start])
+    {
+        if(!visited[neighbour])
+        {
+            bool val = dfsTraversal(neighbour, visited, path, adjList);
+            if(val) return true;
+        }
+        else if(path[neighbour] == 1){
+            return true;
         }
     }
-    
-    recStack[start] = 0;  
+    path[start] = 0;
     return false;
 }
 
-bool canFinish(int numCourses, vector<vector<int>> &prerequisites)
+bool isCyclic(int V, vector<vector<int>> &edges)
 {
-    vector<vector<int>> adjList(numCourses);
-    // convert this into an adjList
-    for (int i = 0; i < prerequisites.size(); i++)
+    // code here
+    vector<int> visited(V, 0);
+    vector<int> path(V, 0);
+    vector<vector<int>> adjList(V);
+    for (int i = 0; i < edges.size(); i++)
     {
-        int u = prerequisites[i][0];
-        int v = prerequisites[i][1];
+        int u = edges[i][0];
+        int v = edges[i][1];
         adjList[u].push_back(v);
     }
-    vector<int> visited(numCourses, 0);
-    vector<int> recStack(numCourses, 0);
-    for (int i = 0; i < numCourses; i++)
+
+    for (int i = 0; i < V; i++)
     {
         if (!visited[i])
         {
-            bool val = dfsTraversal(i, visited, recStack, adjList);
-            if (val == true)
-                return false;
+            bool val = dfsTraversal(i, visited, path, adjList);
+            if(val) return true;
         }
     }
-    return true;
+    return false;
 }
 
 int main()
