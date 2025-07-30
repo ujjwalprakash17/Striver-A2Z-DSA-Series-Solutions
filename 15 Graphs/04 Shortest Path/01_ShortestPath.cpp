@@ -5,39 +5,39 @@ using namespace std;
 // 1.our simple approach is to traverse and do the simple bfs Traversal
 // 2. and take another variable distance with you 
 
-
 vector<int> shortestPath(vector<vector<int>> &adj, int src)
 {
     // code here
+    // using bfs
     int n = adj.size();
-    vector<int> visited(n, 0);
-    vector<int> ans(n, INT_MAX);
+    vector<int> dist(n, 1e9);
+    dist[src] = 0;
     queue<pair<int, int>> q;
     q.push({src, 0});
-    visited[src] = 1;
     while (!q.empty())
     {
         int currNode = q.front().first;
         int currDist = q.front().second;
         q.pop();
-        ans[currNode] = min(ans[currNode], currDist);
         for (int neighbour : adj[currNode])
         {
-            if (!visited[neighbour])
+            if (dist[neighbour] == 1e9)
             {
                 q.push({neighbour, currDist + 1});
-                visited[neighbour] = 1;
             }
+            dist[neighbour] = min(dist[neighbour], currDist + 1);
         }
     }
-    //those who are not yet visited, means they can't be reached through the source so will mark -1
-    for(int i = 0; i < n ; i++)
+    for (int i = 0; i < n; i++)
     {
-        if(visited[i] == 0)
-        ans[i] = -1;
+        if (dist[i] == 1e9)
+        {
+            dist[i] = -1;
+        }
     }
-    return ans;
+    return dist;
 }
+
 
 int main()
 {
