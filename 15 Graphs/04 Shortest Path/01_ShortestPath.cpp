@@ -7,34 +7,28 @@ using namespace std;
 
 vector<int> shortestPath(vector<vector<int>> &adj, int src)
 {
-    // code here
-    // using bfs
     int n = adj.size();
-    vector<int> dist(n, 1e9);
+    vector<int> dist(n , INT_MAX);
+    vector<int> visited(n , 0);
     dist[src] = 0;
-    queue<pair<int, int>> q;
-    q.push({src, 0});
-    while (!q.empty())
+    queue<int> q;
+    while(!q.empty())
     {
-        int currNode = q.front().first;
-        int currDist = q.front().second;
+        int curr = q.front();
         q.pop();
-        for (int neighbour : adj[currNode])
+        for(int neighbour : adj[curr])
         {
-            if (dist[neighbour] == 1e9)
+            if(dist[neighbour] == INT_MAX)
             {
-                q.push({neighbour, currDist + 1});
+                dist[neighbour] = curr+1;
+                visited[neighbour] = 1;
             }
-            dist[neighbour] = min(dist[neighbour], currDist + 1);
         }
     }
-    for (int i = 0; i < n; i++)
-    {
-        if (dist[i] == 1e9)
-        {
-            dist[i] = -1;
-        }
+    for (int &d : dist) {
+        if (d == INT_MAX) d = -1;
     }
+
     return dist;
 }
 
