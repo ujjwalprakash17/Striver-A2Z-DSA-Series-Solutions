@@ -277,3 +277,34 @@ Lambda Function Syntax
     cpp[capture](parameters) -> return_type { body }
     For sorting, the common pattern is:
     cpp[](const Type& a, const Type& b) { return condition; }
+
+
+When Use BFS in case of Graphs:
+1. When you need to find the shortest path in an unweighted graph.
+2. When you need to explore all nodes at the present depth prior to moving on to nodes
+at the next depth level.
+3. When you need to find the minimum number of edges to reach a target node.
+4. When you need lexicogramphically smallest topological Order
+
+
+When Use DFS in case of Graphs:
+1. When you need to explore all possible paths in a graph.
+2. When you need to find a path from the source to the target node.
+3. When you need to check for cycles in a directed or undirected graph.
+4. When you need to find connected components in a graph.
+5. When you need to perform topological sorting in a directed acyclic graph (DAG).
+
+
+
+When Use Dijkstra's Algorithm:
+1. When you need to find the shortest path in a weighted graph with non-negative weights.
+2. When you need to find the minimum cost to reach a target node.
+3. When you need to find the shortest path from a source node to all other nodes in
+    the graph.
+
+
+Use Case : 
+1. When you need to find the shortest path in a DAG then you can use Topological Sort
+2. When you need to find shorted path in a cyclic graph then you can use Dijkstra's Algorithm but no negative weights
+3. When you need to find the shortest path in a cyclic graph with negative weights then you can use Bellman-Ford Algorithm
+4. When you need to find the shortest path in an unweighted graph then you can use BFS
