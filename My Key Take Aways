@@ -308,3 +308,15 @@ Use Case :
 2. When you need to find shorted path in a cyclic graph then you can use Dijkstra's Algorithm but no negative weights
 3. When you need to find the shortest path in a cyclic graph with negative weights then you can use Bellman-Ford Algorithm
 4. When you need to find the shortest path in an unweighted graph then you can use BFS
+
+
+
+
+🔑 Summary:
+Unweighted graph → BFS (fastest and simplest).
+
+Weighted (positive) → Dijkstra.
+
+Weighted (negative) → Bellman-Ford.
+
+All-pairs shortest paths → Floyd-Warshall / Johnson's.
