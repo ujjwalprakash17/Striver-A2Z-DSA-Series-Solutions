@@ -1,40 +1,36 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> shortestPath(vector<vector<int>> &adj, int src)
-{
-    // code here
-    // using bfs
-    int n = adj.size();
-    vector<int> dist(n, 1e9);
-    dist[src] = 0;
-    queue<pair<int, int>> q;
-    q.push({src, 0});
-    while (!q.empty())
-    {
-        int currNode = q.front().first;
-        int currDist = q.front().second;
-        q.pop();
-        for (int neighbour : adj[currNode])
-        {
-            if (dist[neighbour] == 1e9)
-            {
-                q.push({neighbour, currDist + 1});
+//correct implemenation of bellman ford's algorithm
+class Solution {
+
+  public:
+    vector<int> bellmanFord(int V, vector<vector<int>>& edges, int src) {
+        // Code here
+        vector<int> dist(V, 1e8);
+        dist[src] = 0;
+        for(int i = 0; i < V -1 ; i++){
+            for(int j = 0; j < edges.size(); j++){
+                int u = edges[j][0];
+                int v = edges[j][1];
+                int wt = edges[j][2];
+                if(dist[u] != 1e8 && dist[u] + wt < dist[v]){
+                        dist[v] = dist[u] + wt;
+                    }
             }
-            dist[neighbour] = min(dist[neighbour], currDist + 1);
         }
-    }
-    for (int i = 0; i < n; i++)
-    {
-        if (dist[i] == 1e9)
-        {
-            dist[i] = -1;
+        for(int i = 0 ; i < edges.size(); i++){
+            int u = edges[i][0];
+                int v = edges[i][1];
+                int wt = edges[i][2];
+                if(dist[u] != 1e8 && dist[u] + wt < dist[v]) return {-1};
         }
+        return dist;
     }
-    return dist;
-}
+};
+
 int main()
 {
 
-    return 0;
+	return 0;
 }
