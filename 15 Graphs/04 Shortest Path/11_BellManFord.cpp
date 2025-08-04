@@ -5,6 +5,8 @@ using namespace std;
 //  we need to relax the edges for n - 1 times using a nested for loop only
 //  to check for negative weight cycle we need to check that whether these nodes
 //  can be furthur minimized if yes, then there is a negative weight cycle
+// Bellman-Ford only reliably works on directed graphs when negative weights are present. 
+// For undirected graphs, Bellman-Ford is only practical if all edge weights are non-negative
 
 vector<int> bellmanFord(int V, vector<vector<int>> &edges, int src)
 {
