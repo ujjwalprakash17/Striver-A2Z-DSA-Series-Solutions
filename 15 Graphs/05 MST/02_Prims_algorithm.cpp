@@ -1,44 +1,55 @@
 #include <bits/stdc++.h>
 using namespace std;
+// MST : A Graph whose sum of edge weights are minimum, where no of nodes are n & no of edges are n -1, and each node is connected to each other
+// this is called as MST
 
-// Algorithm
-//  1. initial configuration : a. min heap pq b. visited array c. mst storing vector, and ans variable
-
-int spanningTree(int V, vector<vector<int>> adj[])
+int spanningTree(int V, vector<vector<int>> &edges)
 {
     // code here
-    priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> pq;
-
-    pq.push({0, {0, -1}});
-    vector<pair<int,int>> mst;
-    int sum = 0;
+    // create an convert into an adjList
+    vector<vector<pair<int, int>>> adjList(V);
+    for (auto edge : edges)
+    {
+        int u = edge[0];
+        int v = edge[1];
+        int wt = edge[2];
+        adjList[u].push_back({v, wt});
+        adjList[v].push_back({u, wt});
+    }
+    // Algorithm for prims
+    //  1.Store into
+    priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<>> pq;
     vector<int> visited(V, 0);
-    visited[0] = 1;
+    vector<pair<int, int>> mst;
+    int sumOfMST = 0;
+    pq.push({0, {0, -1}});
     while (!pq.empty())
     {
-        //
-        int currNode = pq.top().second.first;
-        int parentNode = pq.top().second.second;
-        int currWeight = pq.top().first;
-        //mark those nodes visited who are not visited yet, also do not mark -1 as visited
-        //put them in mst array
-        if(parentNode != -1 && !visited[currNode]){
-            mst.push_back({currNode, parentNode});
-            visited[currNode] = 1;
-            sum += currWeight;
-        }
-        //sum them up into sum variable
-        // ...
+        auto topEle = pq.top();
+        int currWt = topEle.first;
+        int currNode = topEle.second.first;
+        int currParent = topEle.second.second;
         pq.pop();
-        for(auto it : adj[currNode])
+        if(visited[currNode]) continue;
+        if (currParent != -1)
         {
-            // put those edge weights who are not marked visited
-            int neighbourNode = it.front().[0];
-            
-            // if(!visited[])
+            mst.push_back({currParent, currNode});
+            sumOfMST += currWt;
+        }
+        visited[currNode] = 1;
+        for (auto neighbour : adjList[currNode])
+        {
+            int neighbourNode = neighbour.first;
+            int neighbourWt = neighbour.second;
+            if (!visited[neighbourNode])
+            {
+                pq.push({neighbourWt, {neighbourNode, currNode}});
+            }
         }
     }
+    return sumOfMST;
 }
+
 
 int main()
 {

@@ -1,47 +1,54 @@
 #include <bits/stdc++.h>
 using namespace std;
+// MST : A Graph whose sum of edge weights are minimum, where no of nodes are n & no of edges are n -1, and each node is connected to each other
+// this is called as MST
 
-
-
-vector<int> dijkstra(int V, vector<vector<int>> &edges, int src)
+int spanningTree(int V, vector<vector<int>> &edges)
 {
-    // Code here
+    // code here
+    // create an convert into an adjList
     vector<vector<pair<int, int>>> adjList(V);
-    for(int i = 0; i < edges.size(); i++)
+    for (auto edge : edges)
     {
-        int u = edges[i][0];
-        int v = edges[i][1];
-        int wt = edges[i][2];
+        int u = edge[0];
+        int v = edge[1];
+        int wt = edge[2];
         adjList[u].push_back({v, wt});
         adjList[v].push_back({u, wt});
-    }   
-    set<pair<int, int>> setSpace;
-    vector<int> dist(V, 1e9);
-    dist[src] = 0;
-    setSpace.insert({0, src});
-    while(!setSpace.empty())
+    }
+    // Algorithm for prims
+    //  1.Store into
+    priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<>> pq;
+    vector<int> visited(V, 0);
+    vector<pair<int, int>> mst;
+    int sumOfMST = 0;
+    pq.push({0, {0, -1}});
+    while (!pq.empty())
     {
-        auto topEle = setSpace.begin();
-        setSpace.erase(setSpace.begin());
-        int currWt = topEle->first;
-        int currNode = topEle->second;
-        for(auto neighbour : adjList[currNode]){
+        auto topEle = pq.top();
+        int currWt = topEle.first;
+        int currNode = topEle.second.first;
+        int currParent = topEle.second.second;
+        pq.pop();
+        if(visited[currNode]) continue;
+        if (currParent != -1)
+        {
+            mst.push_back({currParent, currNode});
+            sumOfMST += currWt;
+        }
+        visited[currNode] = 1;
+        for (auto neighbour : adjList[currNode])
+        {
             int neighbourNode = neighbour.first;
             int neighbourWt = neighbour.second;
-            int newDist = currWt + neighbourWt;
-            if(newDist < dist[neighbourNode])
+            if (!visited[neighbourNode])
             {
-                if(dist[neighbourNode] != 1e9){
-                    setSpace.erase({dist[neighbourNode], neighbourNode});
-                }
-                setSpace.insert({newDist, neighbourNode});
-                dist[neighbourNode] = newDist;
+                pq.push({neighbourWt, {neighbourNode, currNode}});
             }
         }
     }
-    return dist;
+    return sumOfMST;
 }
-
 
 int main()
 {
