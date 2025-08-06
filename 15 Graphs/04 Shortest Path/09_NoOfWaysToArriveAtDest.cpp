@@ -13,7 +13,7 @@ int countPaths(int n, vector<vector<int>> &roads)
         adjList[v].emplace_back(u, wt);
     }
 
-    vector<long long> dist(n, LLONG_MAX); // use long long here
+    vector<long long> dist(n, LLONG_MAX); 
     vector<int> ways(n, 0);
     priority_queue<pair<long long, int>, vector<pair<long long, int>>, greater<>> pq;
 
