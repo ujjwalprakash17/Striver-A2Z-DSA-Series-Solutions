@@ -1,57 +1,66 @@
 #include <bits/stdc++.h>
 using namespace std;
-// MST : A Graph whose sum of edge weights are minimum, where no of nodes are n & no of edges are n -1, and each node is connected to each other
-// this is called as MST
 
-int spanningTree(int V, vector<vector<int>> &edges)
+// Disjoint Set
+class DisjointSet
 {
-    // code here
-    // create an convert into an adjList
-    vector<vector<pair<int, int>>> adjList(V);
-    for (auto edge : edges)
+    vector<int> size, parent;
+
+public:
+    //Constructor 
+    DisjointSet(int n)
     {
-        int u = edge[0];
-        int v = edge[1];
-        int wt = edge[2];
-        adjList[u].push_back({v, wt});
-        adjList[v].push_back({u, wt});
+        parent.resize(n + 1, 0);
+        size.resize(n + 1, 1);
+        for (int i = 1; i < n + 1; i++)
+            parent[i] = i;
     }
-    // Algorithm for prims
-    //  1.Store into
-    priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<>> pq;
-    vector<int> visited(V, 0);
-    vector<pair<int, int>> mst;
-    int sumOfMST = 0;
-    pq.push({0, {0, -1}});
-    while (!pq.empty())
+    // we have find parent method 
+    int find(int x)
     {
-        auto topEle = pq.top();
-        int currWt = topEle.first;
-        int currNode = topEle.second.first;
-        int currParent = topEle.second.second;
-        pq.pop();
-        if(visited[currNode]) continue;
-        if (currParent != -1)
+        if(parent[x] != x)
         {
-            mst.push_back({currParent, currNode});
-            sumOfMST += currWt;
+            parent[x] = find(parent[x]);
         }
-        visited[currNode] = 1;
-        for (auto neighbour : adjList[currNode])
-        {
-            int neighbourNode = neighbour.first;
-            int neighbourWt = neighbour.second;
-            if (!visited[neighbourNode])
-            {
-                pq.push({neighbourWt, {neighbourNode, currNode}});
-            }
+        return parent[x];
+    }
+    //Union by size
+    void unionSets(int x, int y)
+    {
+        int xRoot = find(x);
+        int yRoot = find(y);
+        if(xRoot == yRoot) return ; //because in this case they both belong to same parent
+        if(size[xRoot] < size[yRoot]){
+            parent[xRoot] = yRoot;
+            size[yRoot] += size[xRoot];
+        }else{
+            parent[yRoot] = xRoot;
+            size[xRoot] += yRoot;
         }
     }
-    return sumOfMST;
-}
+    // For debugging: Print parent array
+    void printParents() {
+        for (int i = 0; i < parent.size(); i++) {
+            cout << "Node " << i << " -> Parent: " << parent[i] << ", Size: " << size[i] << endl;
+        }
+    }
+};
 
-int main()
-{
+int main() {
+    DisjointSet ds(7);  // Create 7 disjoint sets
+
+    ds.unionSets(0, 1);
+    ds.unionSets(1, 2);
+    ds.unionSets(3, 4);
+    ds.unionSets(5, 6);
+    ds.unionSets(4, 5);
+    ds.unionSets(2, 6); // Merge all
+
+    cout << "Parent array after unions:\n";
+    ds.printParents();
+
+    cout << "\nFind representative of 6: " << ds.find(6) << endl;
+    cout << "Find representative of 3: " << ds.find(3) << endl;
 
     return 0;
 }
