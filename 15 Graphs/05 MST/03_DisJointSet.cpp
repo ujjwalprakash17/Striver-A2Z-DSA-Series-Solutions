@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// // Disjoint Set
+// // Disjoint Set                                  -----------------------Time Complexity is - O(4α) here alpha is very close to 1 ----------->
 // class DisjointSet
 // {
 //     vector<int> size, parent;
