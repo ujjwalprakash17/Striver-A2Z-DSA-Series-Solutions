@@ -22,7 +22,8 @@ using namespace std;
 //         {
 //             parent[x] = find(parent[x]);
 //         }
-//         return parent[x];
+//         return parent[x]; // this will mandatorily have parent[x] not x,
+// because in the middle of recursive calls we will be returning the parent of x not directly x, which will lead to an incorrect result
 //     }
 //     // Union by size
 //     void unionSets(int x, int y)
@@ -93,7 +94,8 @@ using namespace std;
 //     int findUltimateParent(int node){
 //         if(node == parent[node])
 //         return node;
-//         return parent[node] = findUltimateParent(parent[node]); // we are finding ultimate parent with path compression
+//         return parent[node] = findUltimateParent(parent[node]); // this will mandatorily have parent[x] not x,
+// because in the middle of recursive calls we will be returning the parent of x not directly x, which will lead to an incorrect result
 //     }
 
 //     void unionByRank(int u, int v){
@@ -131,7 +133,8 @@ using namespace std;
 //     {
 //         if (parent[x] != x)
 //             parent[x] = find(parent[x]); // path compression
-//         return parent[x];
+//         return parent[x]; // this will mandatorily have parent[x] not x,
+// because in the middle of recursive calls we will be returning the parent of x not directly x, which will lead to an incorrect result
 //     }
 
 //     void unionSets(int x, int y)

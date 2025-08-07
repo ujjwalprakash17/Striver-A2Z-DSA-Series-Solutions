@@ -24,7 +24,8 @@ public:
         {
             parent[x] = find(parent[x]);
         }
-        return parent[x];
+        return parent[x]; // this will mandatorily have parent[x] not x,
+        // because in the middle of recursive calls we will be returning the parent of x not directly x, which will lead to an incorrect result
     }
     int unionBySize(int x, int y)
     {
