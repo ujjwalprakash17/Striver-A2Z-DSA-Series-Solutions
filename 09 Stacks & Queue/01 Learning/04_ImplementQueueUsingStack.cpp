@@ -4,63 +4,59 @@ using namespace std;
 class MyQueue
 {
 private:
-    stack<int> st1;
-    stack<int> st2;
+    std::stack<int> input;  // Stack for push operations
+    std::stack<int> output; // Stack for pop/peek operations
 
-    void transfer() {
-        while (!st1.empty()) {
-            st2.push(st1.top());
-            st1.pop();
+    // Helper function to transfer elements from input to output
+    void transfer()
+    {
+        while (!input.empty())
+        {
+            output.push(input.top());
+            input.pop();
         }
     }
 
 public:
     MyQueue()
     {
+        // Constructor - stacks are automatically initialized
     }
 
     void push(int x)
     {
-        st1.push(x);
+        input.push(x);
     }
 
     int pop()
     {
-        if(st2.empty())
+        // If output stack is empty, transfer from input
+        if (output.empty())
         {
-            if(st1.empty())
-            return -1;
             transfer();
         }
-        int x = st2.top();
-        st2.pop();
-        return x;
+
+        int front = output.top();
+        output.pop();
+        return front;
     }
 
     int peek()
     {
-        if(st2.empty())
+        // If output stack is empty, transfer from input
+        if (output.empty())
         {
-            if(st1.empty()) return -1;
             transfer();
         }
-        return st2.top();
+
+        return output.top();
     }
 
     bool empty()
     {
-        return st1.empty() && st2.empty();
+        return input.empty() && output.empty();
     }
 };
-
-/**
- * Your MyQueue object will be instantiated and called as such:
- * MyQueue* obj = new MyQueue();
- * obj->push(x);
- * int param_2 = obj->pop();
- * int param_3 = obj->peek();
- * bool param_4 = obj->empty();
- */
 
 int main()
 {

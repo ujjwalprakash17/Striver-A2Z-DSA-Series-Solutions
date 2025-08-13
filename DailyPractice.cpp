@@ -1,57 +1,59 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-class MyStack
+class MyQueue
 {
 private:
-    queue<int> q1, q2;
+    std::stack<int> input;  // Stack for push operations
+    std::stack<int> output; // Stack for pop/peek operations
+
+    // Helper function to transfer elements from input to output
+    void transfer()
+    {
+        while (!input.empty())
+        {
+            output.push(input.top());
+            input.pop();
+        }
+    }
 
 public:
-    MyStack()
+    MyQueue()
     {
+        // Constructor - stacks are automatically initialized
     }
 
     void push(int x)
     {
-        q1.push(x);
+        input.push(x);
     }
 
     int pop()
     {
-        if (q1.empty())
-            return -1;
-        while (q1.size() > 1)
+        // If output stack is empty, transfer from input
+        if (output.empty())
         {
-            int top = q1.front();
-            q2.push(top);
-            q1.pop();
+            transfer();
         }
-        int x = q1.front();
-        q1.pop();
-        swap(q1, q2);
-        return x;
+
+        int front = output.top();
+        output.pop();
+        return front;
     }
 
-    int top()
+    int peek()
     {
-        if (q1.empty())
-            return -1;
-        while (q1.size() > 1)
+        // If output stack is empty, transfer from input
+        if (output.empty())
         {
-            int top = q1.front();
-            q2.push(top);
-            q1.pop();
+            transfer();
         }
-        int x = q1.front();
-        return x;
+
+        return output.top();
     }
 
     bool empty()
     {
-        if (q1.size() == 0 && q2.size() == 0)
-            return true;
-        else
-            return false;
+        return input.empty() && output.empty();
     }
 };
 
