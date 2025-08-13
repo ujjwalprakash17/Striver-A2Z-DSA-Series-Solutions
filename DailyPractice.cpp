@@ -1,35 +1,44 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int lengthAfterTransformations(string s, int t)
+bool detectCycle(int start, vector<int> &color, vector<vector<int>> &adjList)
 {
-    vector<int> strFreq(26, 0);
-    for (char ch : s)
-    {
-        strFreq[ch-'a']++;
-    }
 
-    for (int i = 0; i < t; i++)
+    color[start] = 1;
+    for (int neighbour : adjList[start])
     {
-        vector<int> nextFreq(26, 0);
-        for (int j = 0; j < 26; j++)
+        if (color[neighbour] == 0)
         {
-            if(j == 25){
-                nextFreq[0] += strFreq[j];
-                nextFreq[1] += strFreq[j];
-            }else{
-                nextFreq[j+1] = strFreq[j];
-            }    
+            if (!detectCycle(neighbour, color, adjList))
+                return false;
         }
-        strFreq = nextFreq;
+        else if (color[neighbour] == 1)
+            return false;
     }
-    int mod = 1e9 + 7;
-    long long ans = 0;
-    for(int val : strFreq)
+    color[start] = 2;
+    return true;
+}
+
+bool canFinish(int numCourses, vector<vector<int>> &prerequisites)
+{
+    vector<vector<int>> adjList(numCourses);
+    for (auto prereq : prerequisites)
     {
-        ans += val;
+        int u = prereq[0];
+        int v = prereq[1];
+        adjList[v].push_back(u);
     }
-    return ans % mod;
+    vector<int> color(numCourses, 0);
+    for (int i = 0; i < numCourses; i++)
+    {
+        if (!color[i])
+        {
+            bool val = detectCycle(i, color, adjList);
+            if (!val)
+                return false;
+        }
+    }
+    return true;
 }
 
 int main()
