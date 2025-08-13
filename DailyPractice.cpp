@@ -1,61 +1,55 @@
 #include <bits/stdc++.h>
 using namespace std;
-class MyQueue
+class MinStack
 {
 private:
-    std::stack<int> input;  // Stack for push operations
-    std::stack<int> output; // Stack for pop/peek operations
-
-    // Helper function to transfer elements from input to output
-    void transfer()
-    {
-        while (!input.empty())
-        {
-            output.push(input.top());
-            input.pop();
-        }
-    }
+    vector<pair<int, int>> stk;
 
 public:
-    MyQueue()
+    MinStack()
     {
-        // Constructor - stacks are automatically initialized
     }
 
-    void push(int x)
+    void push(int val)
     {
-        input.push(x);
-    }
-
-    int pop()
-    {
-        // If output stack is empty, transfer from input
-        if (output.empty())
+        if (stk.empty())
         {
-            transfer();
+            stk.push_back({val, val});
+            return ;
         }
+        int minEle = stk.back().second;
 
-        int front = output.top();
-        output.pop();
-        return front;
+        stk.push_back({val, min(minEle, val)});
     }
 
-    int peek()
+    void pop()
     {
-        // If output stack is empty, transfer from input
-        if (output.empty())
-        {
-            transfer();
-        }
-
-        return output.top();
+        if (stk.empty())
+            return;
+        stk.pop_back();
     }
 
-    bool empty()
+    int top()
     {
-        return input.empty() && output.empty();
+        auto top = stk.back();
+        return top.first;
+    }
+
+    int getMin()
+    {
+        auto top = stk.back();
+        return top.second;
     }
 };
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj->push(val);
+ * obj->pop();
+ * int param_3 = obj->top();
+ * int param_4 = obj->getMin();
+ */
 
 int main()
 {
