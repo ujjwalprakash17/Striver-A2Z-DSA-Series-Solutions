@@ -1,45 +1,59 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool detectCycle(int start, vector<int> &color, vector<vector<int>> &adjList)
+class MyStack
 {
+private:
+    queue<int> q1, q2;
 
-    color[start] = 1;
-    for (int neighbour : adjList[start])
+public:
+    MyStack()
     {
-        if (color[neighbour] == 0)
+    }
+
+    void push(int x)
+    {
+        q1.push(x);
+    }
+
+    int pop()
+    {
+        if (q1.empty())
+            return -1;
+        while (q1.size() > 1)
         {
-            if (!detectCycle(neighbour, color, adjList))
-                return false;
+            int top = q1.front();
+            q2.push(top);
+            q1.pop();
         }
-        else if (color[neighbour] == 1)
+        int x = q1.front();
+        q1.pop();
+        swap(q1, q2);
+        return x;
+    }
+
+    int top()
+    {
+        if (q1.empty())
+            return -1;
+        while (q1.size() > 1)
+        {
+            int top = q1.front();
+            q2.push(top);
+            q1.pop();
+        }
+        int x = q1.front();
+        return x;
+    }
+
+    bool empty()
+    {
+        if (q1.size() == 0 && q2.size() == 0)
+            return true;
+        else
             return false;
     }
-    color[start] = 2;
-    return true;
-}
-
-bool canFinish(int numCourses, vector<vector<int>> &prerequisites)
-{
-    vector<vector<int>> adjList(numCourses);
-    for (auto prereq : prerequisites)
-    {
-        int u = prereq[0];
-        int v = prereq[1];
-        adjList[v].push_back(u);
-    }
-    vector<int> color(numCourses, 0);
-    for (int i = 0; i < numCourses; i++)
-    {
-        if (!color[i])
-        {
-            bool val = detectCycle(i, color, adjList);
-            if (!val)
-                return false;
-        }
-    }
-    return true;
-}
+};
 
 int main()
 {
