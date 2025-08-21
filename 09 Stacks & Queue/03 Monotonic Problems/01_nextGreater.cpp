@@ -39,50 +39,54 @@ using namespace std;
 // so approach : 
 
 
-
-vector<int> nextGreaterElement(vector<int>& nums1, vector<int> &nums2)
+vector<int> nextGreaterElement(vector<int> &nums1, vector<int> &nums2)
 {
-    int n = nums2.size();
-    vector<int> ans(n);
-    stack<int> st;
-    for (int i = n - 1; i >= 0; i--)
+    // special conditions
+    //  1. right to left traverse krenge
+    //  2. last element ke liye hamesh -1 dalenge
+    //  3. agar stack me curr se bada hai toh jb tk pop kro jb tak stack empty na ho jaye ya phir koi bada element na mil jaye
+    //  4. aur agar stk ke top pe bada element hai curr se toh top wale ko bade element me daal do aur curr wale ko push kr do
+    int n1 = nums1.size();
+    int n2 = nums2.size();
+    unordered_map<int, int> mp;
+    stack<int> stk;
+    for (int i = n2 - 1; i >= 0; i--)
     {
-        if (i == n - 1)
+        int currEle = nums2[i];
+        if (i == n2 - 1)
         {
-            st.push(nums2[i]);
-            ans[i] = -1;
+            mp[currEle] = -1;
         }
         else
         {
-            while (!st.empty() && nums2[i] >= st.top())
+            while (!stk.empty() && stk.top() < currEle)
             {
-                st.pop();
+                stk.pop();
             }
-            if (st.empty())
-            {
-                ans[i] = -1;
-                st.push(nums2[i]);
-            }
+            if (stk.empty())
+                mp[currEle] = -1;
             else
             {
-                ans[i] = st.top();
-                st.push(nums2[i]);
+                mp[currEle] = stk.top();
             }
         }
+        stk.push(currEle);
     }
-    vector<int> result;
-    for(int i = 0; i < nums1.size(); i++)
+    vector<int> ans;
+    for (int ele : nums1)
     {
-        for(int j = 0; j < nums2.size() ; j++)
-        {
-            if(nums1[i] == nums2[j])
-            {
-                result.push_back(ans[j]);
-            }
-        }
+        ans.push_back(mp[ele]);
     }
-    return result;
+    return ans;
 }
+
+// Time Complexity Analysis Amortised --- Very interesting
+// 1. first loop is running from n2 ---> 0 so O(n2) ~
+// 2. since in while loop total opertions can be at max O(n2) - total push O(n2) * each iteration + O(n2) pop (since each element can be popped at once)
+// 3. total time complexity is O(n2) + O(n2) + O(<= n2) which in total is O(n2);
+
+
+
 
 int main()
 {
