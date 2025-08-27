@@ -320,3 +320,44 @@ Weighted (positive) → Dijkstra.
 Weighted (negative) → Bellman-Ford.
 
 All-pairs shortest paths → Floyd-Warshall / Johnson's.
+
+
+
+
+Concept for monotonic Stack problems : 
+1. hame har bar O(n) me krne ke liye ye sochna hai ki kaise har element ke next/prev greater or 
+next/prev smaller element ko find kr paye and is type ke Concepts ka use krke problem ko kaise solve kare
+
+
+📊 Common Problem Types
+
+Monotonic stack concepts appear in many problems:
+
+Next Greater/Smaller Element (basic versions)
+
+Largest Rectangle in Histogram
+
+Sum of Subarray Ranges
+
+Trapping Rain Water
+
+Stock Span Problem
+
+Daily Temperatures
+
+Asteroid Collision
+
+Maximum of minimums for every window size
+
+All of them reduce to:
+➡️ “Find boundary (next/prev greater/smaller) efficiently in O(n).”
+
+🧠 Think This Way
+
+Whenever a problem involves:
+
+"Nearest" element greater/smaller on left/right, OR
+
+Subarray ranges defined by greater/smaller boundaries
+
+👉 Immediately think monotonic stack.
