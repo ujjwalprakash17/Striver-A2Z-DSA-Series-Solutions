@@ -361,3 +361,19 @@ Whenever a problem involves:
 Subarray ranges defined by greater/smaller boundaries
 
 👉 Immediately think monotonic stack.
+
+
+
+Two Pointers Techniques :
+    Type 1 : When you need count in such subarrays where counting the subarray is not monotonic
+            Ex. Problems : Count subarrays with fixed bounds, Count subarrays with sum at most K, Count subarrays with sum exactly K
+            Solution Techniques : Sliding Window, Prefix Sum
+    Type 2 : When you need to find something from two ends of a array and then have to find something in between,
+            Ex. Problems : Maximum points you can obtain from cards, Find the maximum sum of a subarray of fixed size, Find the minimum sum of a subarray of fixed size
+            Solution Techniques : Two Pointers  
+    Type 3 : When you need to find the longest or smallest subarray with some condition
+            Ex. Problems : Longest subarray with at most K distinct elements, Smallest subarray with sum at least K
+            Solution Techniques : Two Pointers 
+            
+    Type 4 : When you need to find the maximum or minimum subarray with some condition
+            Ex. Problems : Maximum subarray sum, Minimum subarray sum
