@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string minWindow(string s, string t)
+{
+    int n = s.size(), m = t.size();
+    string ans = "";
+    int tPointer = 0;
+    int minLength = INT_MAX;
+    for (int right = 0; right < n; right++)
+    {
+        if (s[right] == t[tPointer])
+        {
+            tPointer++;
+            // now if t pointer reaches to the end of string t
+            if (tPointer == m)
+            {
+                int start = right; // since right hasn't been incremented
+                int end = right;
+                // now we will start traversing backwards
+                tPointer = m - 1; // bring tPointer to the end of string
+                while (start >= 0)
+                {
+                    if (t[tPointer] == s[start])
+                    {
+                        tPointer--;
+                    }
+                    // if before start reaches to 0, if tPointer reaches to start of t
+                    if (tPointer < 0)
+                        break;
+                    start--;
+                }
+                //now our end is at end of substring and start is at start of substring then
+                if(end - start + 1 < minLength)
+                {
+                    minLength = end - start + 1;
+                    ans = s.substr(start, minLength);
+                }
+                // we need to reset our right and t pointer 
+                right = start;//now we will check for the elements next to start
+                tPointer = 0;
+            }
+        }
+    }
+    return ans;
+}
+
+int main()
+{
+
+    return 0;
+}
