@@ -1,44 +1,37 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-// instead of storing characters we will be storing indices, this will help us to decide which is previous and which is after
-
-//T.C - O(n) , S.C - O(n)
-bool checkValidString(string s) {
-    stack<int> open, star;
-
-    for (int i = 0; i < s.size(); i++) {
-        if (s[i] == '(') {
-            open.push(i);
-        } else if (s[i] == '*') {
-            star.push(i);
-        } else { // ')'
-            if (!open.empty()) {
-                open.pop();
-            } else if (!star.empty()) {
-                star.pop();
-            } else {
-                return false; // no match available
-            }
+void generateAllSubsequences(int ind, vector<int> &temp, vector<vector<int>> &ans, vector<int> &arr)
+{
+    if (ind == arr.size())
+    {
+        if (temp.size() > 0)
+        {
+            ans.push_back(temp);
         }
+        return;
     }
-
-    // Match remaining '(' with later '*'
-    while (!open.empty() && !star.empty()) {
-        if (open.top() < star.top()) { 
-            open.pop();
-            star.pop();
-        } else {
-            return false; // '(' occurs after '*' → cannot match
-        }
-    }
-
-    return open.empty();
+    //not pick 
+    generateAllSubsequences(ind + 1, temp, ans, arr);
+    //pick condition 
+    temp.push_back(arr[ind]);
+    generateAllSubsequences(ind + 1, temp, ans, arr);
+    temp.pop_back();
 }
 
 int main()
 {
-    string s = "(*))";
-    checkValidString(s) ? cout << "true" : cout << "false" << endl;
+    vector<int> sample = {1, 2, 3, 4};
+    vector<vector<int>> ans;
+    vector<int> temp;
+    generateAllSubsequences(0, temp, ans, sample);
+    int cnt = 0;
+    for (auto it : ans)
+    {
+        cnt ++;
+        for (int ele : it)
+            cout << ele << " ";
+        cout << endl;
+    }
+    cout << "total number of subsequences is " << cnt << endl;
     return 0;
 }

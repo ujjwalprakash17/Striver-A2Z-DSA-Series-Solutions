@@ -14,6 +14,16 @@ bool canJump(vector<int> &nums)
     }
     return  true;
 }
+//Concept :
+// Up to now, what is the farthest place I could possibly reach?
+//if at some point I am at where which in ahead of my farthest this means I have exceeded my farthest limit means I can't travel any more and I haven't reached to end 
+
+// Suppose at some index i, we realize:
+// i > farthest
+// That means:
+// The farthest we could reach before was behind i.
+// We are now “stuck” — we cannot even stand on i.
+// If you’re stuck before the last index, you will never reach the end → return false.
 
 int main()
 {
