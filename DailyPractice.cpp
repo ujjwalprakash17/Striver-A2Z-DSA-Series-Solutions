@@ -1,25 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
-vector<int> sumZero(int n)
+
+int maxFrequency(vector<int> &nums, int k, int numOperations)
 {
-    vector<int> ans;
-    if (!(n & 1))
-        n += 1;
-    int start = (-1) * n / 2;
-    int end = ((-1) * n / 2) + n;
-    for (int i = start; i < end; i++)
+    int n = nums.size();
+    sort(nums.begin(), nums.end());
+    int cnt = 1, ans = 1;
+    int tempK = k, tempNumOp = numOperations;
+    for(int i = 0; i < n - 1; i++)
     {
-        if (!(n & 1) && i == 0)
-        {
-            continue;
+        if(nums[i] + tempK >= nums[i+1]){
+            cnt++;
+            tempNumOp--;
+            if(tempNumOp == 0) tempK = 0;
+        }else{
+            
         }
-        ans.push_back(i);
     }
     return ans;
 }
+
 int main()
 {
-    sumZero(5);
+    vector<int> sample = {1, 2, 3, 4};
 
     return 0;
 }

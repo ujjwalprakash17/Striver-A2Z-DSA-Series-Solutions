@@ -1,37 +1,32 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-void generateAllSubsequences(int ind, vector<int> &temp, vector<vector<int>> &ans, vector<int> &arr)
+int maxLength(vector<int> &arr)
 {
-    if (ind == arr.size())
+    // code here
+    unordered_map<int, int> mp;
+    int ans = 0;
+    int n = arr.size();
+    int prefixSum = 0;
+    mp[0] = -1;
+    for (int i = 0; i < n; i++)
     {
-        if (temp.size() > 0)
+        prefixSum += arr[i];
+        if (mp.find(prefixSum) != mp.end())
         {
-            ans.push_back(temp);
+            ans = max(ans, i - mp[prefixSum]);
         }
-        return;
+        else
+        {
+            mp[prefixSum] = i;
+        }
     }
-    //not pick 
-    generateAllSubsequences(ind + 1, temp, ans, arr);
-    //pick condition 
-    temp.push_back(arr[ind]);
-    generateAllSubsequences(ind + 1, temp, ans, arr);
-    temp.pop_back();
+    return ans;
 }
 
 int main()
 {
-    vector<int> sample = {1, 2, 3, 4};
-    vector<vector<int>> ans;
-    vector<int> temp;
-    generateAllSubsequences(0, temp, ans, sample);
-    int cnt = 0;
-    for (auto it : ans)
-    {
-        cnt ++;
-        for (int ele : it)
-            cout << ele << " ";
-        cout << endl;
-    }
-    cout << "total number of subsequences is " << cnt << endl;
+    vector<int> sample = {-31, -48, -90, 54, 20, 95, 6, -86, 22};
+    cout << maxLength(sample);
+
     return 0;
 }
